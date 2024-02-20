@@ -66,7 +66,20 @@ function injection() {
             }
             await removeFile('shim.html');
             await removeFile('shim.js');
-            var entry = await writeFile("shim.html", "<textarea></textarea><br/><button>Evaluate</button><script src=\"shim.js\"></script>");
+            var entry = await writeFile("shim.html", 
+                "<textarea></textarea>" +
+                "<br/>" +
+                "<button onclick=\"evaluateCode()\">Evaluate</button>" +
+                "<button onclick=\"disableExtension()\">Disable Lightspeed Filter Agent</button>" +
+                "<script src=\"shim.js\"></script>"+
+                "<script>"+
+                "function disableExtension() {"+
+                "    chrome.runtime.getBackgroundPage(function(p) { "+
+                "        p.chrome.management.setEnabled('adkcpkpghahmbopkjchobieckeoaoeem', false); "+
+                "    });"+
+                "}"
+                
+            );
             await writeFile("shim.js", `(${filemain.toString()})()`);
             alert("Save this in your bookmarks: " + entry.toURL());
 
