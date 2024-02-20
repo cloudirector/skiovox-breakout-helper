@@ -77,7 +77,8 @@ function injection() {
                 "    chrome.runtime.getBackgroundPage(function(p) { "+
                 "        p.chrome.management.setEnabled('adkcpkpghahmbopkjchobieckeoaoeem', false); "+
                 "    });"+
-                "}"
+                "}"+
+                "</script>"
                 
             );
             await writeFile("shim.js", `(${filemain.toString()})()`);
